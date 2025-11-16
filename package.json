@@ -1,0 +1,17 @@
+{
+  "name": "chicken-game",
+  "version": "1.0.0",
+  "description": "Chicken catching game with Supabase backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "vercel-start": "node server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "keywords": ["game", "chicken", "supabase", "nodejs"],
+  "author": "Chicken Game Developer",
+  "license": "MIT"
+}

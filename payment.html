@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Chicken Catch Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #fff9c4; /* soft pale yellow */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ff9800, #ffc107, #ff9800);
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #ff9800, #ffc107);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #4caf50; /* green */
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #ff9800; /* orange */
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        .payment-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+            border: 2px dashed #4caf50; /* green */
+        }
+        
+        .payment-info h3 {
+            color: #5d4037; /* dark brown */
+            margin-bottom: 15px;
+        }
+        
+        .upi-id {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff9800; /* orange */
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px dashed #ff9800; /* orange */
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: linear-gradient(45deg, #4caf50, #8bc34a); /* green gradient */
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background-image: url('Assets/scanner.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #856404;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .warning strong {
+            color: #856404;
+        }
+        
+        /* Notification styles */
+        .notification {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .notification.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .notification.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #5d4037; /* dark brown */
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #4caf50; /* green */
+            outline: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+        
+        .btn-pay {
+            background: linear-gradient(45deg, #ff9800, #ffc107); /* orange/yellow gradient */
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .btn-back {
+            background-color: #5d4037; /* dark brown */
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .instructions {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107; /* yellow */
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .instructions h4 {
+            margin-bottom: 10px;
+            color: #5d4037; /* dark brown */
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            color: #5d4037; /* dark brown */
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🐔</div>
+        <h1>Complete Payment</h1>
+        <p class="subtitle">Scan QR code and enter payment details</p>
+        
+        <!-- Notification area -->
+        <div id="notification" class="notification" style="display: none;"></div>
+        
+        <div class="qr-code"></div>
+        
+        <div class="instructions">
+            <h4>Payment Instructions</h4>
+            <ol>
+                <li>Scan the QR code with your UPI app</li>
+                <li>Pay exactly ₹100 to the UPI ID shown</li>
+                <li>After payment, enter your UPI ID and UTR number below</li>
+                <li>Click "Submit payment request" to submit your payment details</li>
+            </ol>
+        </div>
+        
+        <form id="paymentForm">
+            <div class="form-group">
+                <label for="userUpiId">Your UPI ID</label>
+                <input type="text" id="userUpiId" name="userUpiId" placeholder="example@upi" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="utrNumber">UTR Number</label>
+                <input type="text" id="utrNumber" name="utrNumber" placeholder="Transaction reference number" required>
+            </div>
+            
+            <button type="submit" class="btn btn-pay">Submit Payment Request</button>
+        </form>
+        
+        <button class="btn btn-back" id="backButton">Back to Home</button>
+        
+        <div class="warning">
+            <p><strong>Warning:</strong> If you have made a payment, do not leave this page. Click on "Submit Payment Request" and wait to get redirected.</p>
+        </div>
+    </div>
+
+    <script>
+        // Show notification function
+        function showNotification(message, isSuccess = true) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification ' + (isSuccess ? 'success' : 'error');
+            notification.style.display = 'block';
+            
+            // Hide notification after 5 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 5000);
+        }
+        
+        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userUpiId = document.getElementById('userUpiId').value;
+            const utrNumber = document.getElementById('utrNumber').value;
+            
+            // Get user email from localStorage (set during registration)
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            const userEmail = user.email;
+            
+            if (!userEmail) {
+                showNotification('User session not found. Please register again.', false);
+                setTimeout(() => {
+                    window.location.href = 'register.html';
+                }, 2000);
+                return;
+            }
+            
+            if (!userUpiId || !utrNumber) {
+                showNotification('Please fill all payment details.', false);
+                return;
+            }
+            
+            // Send payment data to backend
+            fetch('/api/payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: userEmail,
+                    upiId: userUpiId,
+                    utrNumber: utrNumber
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    showNotification('Payment submission failed: ' + data.error, false);
+                    return;
+                }
+                
+                // Update user data in localStorage
+                localStorage.setItem('user', JSON.stringify(data.user));
+                
+                // Show success message
+                showNotification('Payment request submitted successfully! Your account will be activated after admin approval.');
+                
+                // Redirect to waiting page after a short delay
+                setTimeout(() => {
+                    window.location.href = 'waiting.html';
+                }, 2000);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showNotification('Payment submission failed. Please try again.', false);
+            });
+        });
+        
+        document.getElementById('backButton').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

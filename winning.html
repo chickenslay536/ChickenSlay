@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congratulations! - Chicken Catch Challenge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #fff9c4; /* soft pale yellow */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #ff9800, #ffc107, #ff9800);
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #ff9800, #ffc107);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #4caf50; /* green */
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #ff9800; /* orange */
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+        
+        .winning-icon {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin: 20px 0;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+        
+        .prize-amount {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ff9800;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            border: 2px dashed #4caf50; /* green */
+        }
+        
+        .info-box h3 {
+            color: #5d4037; /* dark brown */
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #5d4037; /* dark brown */
+        }
+        
+        .value {
+            color: #5d4037; /* dark brown */
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+        
+        .btn-home {
+            background-color: #5d4037; /* dark brown */
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107; /* yellow */
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .note strong {
+            color: #5d4037; /* dark brown */
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 15px;
+                font-size: 1.1rem;
+            }
+            
+            .prize-amount {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🐔</div>
+        <h1>Congratulations!</h1>
+        <p class="subtitle">You've won the Chicken Catch Challenge</p>
+        
+        <div class="winning-icon">🏆</div>
+        
+        <div class="prize-amount">₹1,000</div>
+        
+        <div class="info-box">
+            <h3>Prize Details</h3>
+            <div class="info-item">
+                <span class="label">Prize Amount:</span>
+                <span class="value">₹1,000 Cash Prize</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Processing Date:</span>
+                <span class="value">December 1st</span>
+            </div>
+            <div class="info-item">
+                <span class="label">Contact Method:</span>
+                <span class="value" id="userEmail">Email</span>
+            </div>
+        </div>
+        
+        <div class="note">
+            <strong>Note:</strong> We'll contact you through your registered email to process your prize money. The prize will be processed and transferred to you on December 1st.
+        </div>
+        
+        <button class="btn btn-home" id="homeButton">Back to Home</button>
+    </div>
+
+    <script>
+        // Get user data from localStorage
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        
+        // Display user email
+        if (user.email) {
+            document.getElementById('userEmail').textContent = user.email;
+        }
+        
+        // Home button event
+        document.getElementById('homeButton').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+        
+        // Record win in database
+        document.addEventListener('DOMContentLoaded', function() {
+            if (user.id) {
+                // Send win data to server
+                fetch('/api/user/win', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: user.id
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error('Failed to record win:', data.error);
+                    } else {
+                        console.log('Win recorded successfully');
+                        // Update user data in localStorage
+                        if (data.user) {
+                            localStorage.setItem('user', JSON.stringify(data.user));
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error recording win:', error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
